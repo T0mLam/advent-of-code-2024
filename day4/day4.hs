@@ -6,8 +6,8 @@ countFreq t s
     | t `isPrefixOf` s  = 1 + countFreq t (drop (length t) s)
     | otherwise         = countFreq t (tail s)
 
-countTotalXMAS :: String -> [String] -> Int
-countTotalXMAS t xs = 
+countTotal :: String -> [String] -> Int
+countTotal t xs = 
     foldr (\x acc -> countFreq t x + acc) 0 xs +
     foldr (\x acc -> countFreq t (reverse x) + acc) 0 xs
 
@@ -33,10 +33,10 @@ task1 = do
     content <- readFile "input.txt"
     let l = lines content
     let total = 
-            countTotalXMAS "XMAS" l + 
-            countTotalXMAS "XMAS" (transpose l) +
-            countTotalXMAS "XMAS" (mainDiagonal l) + 
-            countTotalXMAS "XMAS" (antiDiagonal l)
+            countTotal "XMAS" l + 
+            countTotal "XMAS" (transpose l) +
+            countTotal "XMAS" (mainDiagonal l) + 
+            countTotal "XMAS" (antiDiagonal l)
     print total
 
 extract9Grids :: Int -> Int -> [String] -> [String]
@@ -52,7 +52,7 @@ task2 = do
     let grids = extractAll9Grids l
     let total = length $ filter (
             \g -> 
-                countTotalXMAS "MAS" (mainDiagonal g) == 1 &&
-                countTotalXMAS "MAS" (antiDiagonal g) == 1
+                countTotal "MAS" (mainDiagonal g) == 1 &&
+                countTotal "MAS" (antiDiagonal g) == 1
             ) grids
     print total

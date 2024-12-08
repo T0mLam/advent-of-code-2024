@@ -1,5 +1,6 @@
 import Data.Map (Map)
 import qualified Data.Map as Map
+import Graphics.Vty (Cursor(PositionOnly))
 
 type Position = (Int, Int)
 
@@ -52,6 +53,7 @@ getAntinodeMap' maxR maxC xs = Map.unions [
                 f (r, c) acc = go (tr, tc) acc
                     where 
                         (dr, dc) = diff (tr, tc) (r, c)
+                        go :: Position -> [(Position, Int)] -> [(Position, Int)] 
                         go (nr, nc) acc
                             | nr `elem` [0 .. maxR - 1] && nc `elem` [0 .. maxC - 1] = 
                                 go (nr + dr, nc + dc) (((nr, nc), 1): acc)

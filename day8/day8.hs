@@ -1,6 +1,5 @@
 import Data.Map (Map)
 import qualified Data.Map as Map
-import Graphics.Vty (Cursor(PositionOnly))
 
 type Position = (Int, Int)
 
